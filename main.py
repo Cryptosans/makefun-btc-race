@@ -4,7 +4,7 @@ Strategy (designed from the dev window's own statistics, no baseline code read):
   * 1-minute cbBTC/USDC bars are mostly noise (1-min return sd ~6.7 bps) while
     a full-size round trip costs ~36 bps, so the bot only trades when a real
     multi-hour move is under way: the 60-bar return is at least +25 bps AND
-    the 120-bar high-low range is at least 150 bps (volatility expansion).
+    the 120-bar high-low range is at least 180 bps (volatility expansion).
   * It buys the whole cash balance once, then rides the move with an 80 bp
     trailing stop measured from the highest close since entry.
   * If it has still never traded by bar 1200, a plain 60-bar momentum
@@ -28,7 +28,9 @@ SYMBOL = "CBBTC"
 MOM_W = 60            # momentum window, bars
 MOM_MIN_BPS = 25      # 60-bar return needed to enter
 RANGE_W = 120         # volatility-expansion window, bars
-RANGE_MIN_BPS = 150   # 120-bar high-low range needed to enter
+RANGE_MIN_BPS = 180   # 120-bar high-low range needed to enter (sweep5: 120/150/180
+                      # bps all give the same dev PnL — the entry bars clear 180, so
+                      # the tighter bound only filters weaker live moves)
 TRAIL_BPS = 80        # trailing stop from the highest close since entry
 FALLBACK_SEQ = 1200   # late-day participation floor
 FALLBACK_MOM_BPS = 15
